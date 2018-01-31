@@ -1,0 +1,77 @@
+﻿<div class="example-container">
+    <split direction="horizontal" [gutterSize]="7" [visibleTransition]="true">
+        <split-area [size]="30" [visible]="hideleft" [order]="1">
+            <div class="left-col">
+                <div class="shadowbox">
+                    <!--<p-dataTable [value]="values" selectionMode="single" resizableColumns="true"
+                                 [(selection)]="displayValue" (onRowSelect)="onDetailView()"
+                                 scrollable="true" [scrollHeight]="scrollHeight"
+                                 [rows]="100" virtualScroll="virtualScroll"
+                                 [lazy]="true" (onLazyLoad)="onLoadData($event)" [totalRecords]="totalRow"
+                                 sortField="TrainingTypeParentString" rowGroupMode="rowspan">
+                        <p-header>There are {{totalRow}} training-type(s)</p-header>
+                        <p-column field="TrainingTypeParentString" header="Parent-Type" [sortable]="true"></p-column>
+                        <p-column field="TrainingTypeId" header="No." [sortable]="true" [style]="{'width':'15%'}"></p-column>
+                        <p-column field="TrainingTypeName" header="Name" [sortable]="true"></p-column>
+                    </p-dataTable>-->
+                    <p-treeTable [value]="nodes" selectionMode="single" [(selection)]="selectNode"
+                                 (onNodeSelect)="onDetailView()">
+                        <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                                  [style]="column.style"></p-column>
+                    </p-treeTable>
+                    <!--<p>Selected Node: {{selectNode ? selectNode.data.TrainingTypeName : 'none'}}</p>-->
+                </div>
+            </div>
+        </split-area>
+        <split-area [size]="70" [order]="2">
+            <div class="media">
+                <!--Left-->
+                <div class="media-left">
+                    <div class="hide-table" (click)="hideleft = !hideleft" mdTooltip="Hide/Show Table" mdTooltipPosition="right">
+                    </div>
+                </div>
+                <!--Center-->
+                <div class="media-body">
+                    <div *ngIf="selectNode || ShowEdit; else elseBlock">
+                        <div *ngIf="!ShowEdit; else detailEdit">
+                            <training-type-view></training-type-view>
+                        </div>
+                        <ng-template #detailEdit>
+                            <training-type-edit></training-type-edit>
+                        </ng-template>
+                    </div>
+                    <ng-template #elseBlock>
+                        <h4>
+                            Selected Training type data from list to show information
+                        </h4>
+                    </ng-template>
+                </div>
+                <!--Right-->
+                <div class="media-right">
+                    <div class="menu-tool">
+                        <button type="button" md-mini-fab color="accent" (click)="onDetailEdit()" [disabled]="ShowEdit" mdTooltip="Create new" mdTooltipPosition="left">
+                            <i class="fa fa-2x fa-plus" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" md-mini-fab color="accent" (click)="onDetailEdit(selectNode)" [disabled]="ShowEdit || DisplayDataNull" mdTooltip="Edit" mdTooltipPosition="left">
+                            <i class="fa fa-2x fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <hr />
+                        <button type="button" md-mini-fab color="warn" (click)="onCancelEdit()" [disabled]="!ShowEdit" mdTooltip="Cancel" mdTooltipPosition="left">
+                            <i class="fa fa-2x fa-minus" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" md-mini-fab color="primary" (click)="onSubmit()" [disabled]="!canSave" mdTooltip="Save" mdTooltipPosition="left">
+                            <i class="fa fa-2x fa-floppy-o" aria-hidden="true"></i>
+                        </button>
+                        <hr />
+                        <button type="button" md-mini-fab color="accent" disabled mdTooltip="Report" mdTooltipPosition="left">
+                            <i class="fa fa-2x fa-file-o" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" md-mini-fab color="accent" disabled mdTooltip="Report(2)" mdTooltipPosition="left">
+                            <i class="fa fa-2x fa-share" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </split-area>
+    </split>
+</div>

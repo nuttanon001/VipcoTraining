@@ -1,0 +1,165 @@
+﻿<div *ngIf="editValue; else elseBlock">
+    <md-tab-group>
+        <md-tab label="Information of Course">
+            <div  class="panel panel-info">
+                <div class="panel-body">
+                    <form [formGroup]="editValueForm" class="form-horizontal">
+                        <!-- Row1 -->
+                        <div class="form-group form-group-sm">
+                            <label for="TrainingCousreCode" class="col-sm-1 control-label"> CourseCode : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" placeholder="Insert course code here."
+                                       id="TrainingCousreCode" formControlName="TrainingCousreCode" required>
+                                <control-messages [control]="editValueForm.controls.TrainingCousreCode"></control-messages>
+                            </div>
+
+                            <label for="TrainingCousreName" class="col-sm-1 control-label"> Course Name : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" placeholder="Insert name course here."
+                                       id="TrainingCousreName" formControlName="TrainingCousreName" required>
+                                <control-messages [control]="editValueForm.controls.TrainingCousreName"></control-messages>
+                            </div>
+                        </div>
+
+                        <!-- Row2 -->
+                        <div class="form-group form-group-sm">
+                            <label for="Detail" class="col-sm-1 control-label"> Detail : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" placeholder="Insert detail of course here."
+                                       id="Detail" formControlName="Detail">
+                                <control-messages [control]="editValueForm.controls.Detail"></control-messages>
+                            </div>
+
+                            <label for="EducationRequirementId" class="col-sm-1 control-label"> Education : </label>
+                            <div class="col-sm-5">
+                                <p-dropdown [options]="educations" filter="filter" [style]="{'width':'100%'}"
+                                            id="EducationRequirementId" formControlName="EducationRequirementId"
+                                            class="form-control no-border">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <!-- Row3 -->
+                        <div class="form-group form-group-sm">
+                            <label for="TrainingLevelId" class="col-sm-1 control-label"> Level of Train : </label>
+                            <div class="col-sm-5">
+                                <p-dropdown [options]="trainLevels" filter="filter" [style]="{'width':'100%'}"
+                                            id="TrainingLevelId" formControlName="TrainingLevelId"
+                                            class="form-control no-border">
+                                </p-dropdown>
+                            </div>
+
+                            <label for="TrainingTypeId" class="col-sm-1 control-label"> Type of Train : </label>
+                            <div class="col-sm-5">
+                                <p-dropdown [options]="trainTypes" filter="filter" [style]="{'width':'100%'}"
+                                            id="TrainingTypeId" formControlName="TrainingTypeId"
+                                            class="form-control no-border">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <!-- Row4 -->
+                        <div class="form-group form-group-sm">
+                            <label for="WorkExperienceRequirement" class="col-sm-1 control-label"> Experience(Yr.) : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="number" placeholder="Insert experience of work here."
+                                       id="WorkExperienceRequirement" formControlName="WorkExperienceRequirement"
+                                       min="0">
+                                <control-messages [control]="editValueForm.controls.WorkExperienceRequirement"></control-messages>
+                            </div>
+
+                            <label for="MinimunScore" class="col-sm-1 control-label"> Minimun Score : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="number" placeholder="Insert minimun score of course here."
+                                       id="MinimunScore" formControlName="MinimunScore"
+                                       min="0">
+                                <control-messages [control]="editValueForm.controls.MinimunScore"></control-messages>
+                            </div>
+                        </div>
+
+                        <!-- Row5 -->
+                        <div class="form-group form-group-sm">
+                            <label for="TrainingDurationHour" class="col-sm-1 control-label"> Time(Hr.) : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="number" placeholder="Insert time for train course here."
+                                       id="TrainingDurationHour" formControlName="TrainingDurationHour"
+                                       min="0">
+                                <control-messages [control]="editValueForm.controls.TrainingDurationHour"></control-messages>
+                            </div>
+
+                            <label for="BaseCost" class="col-sm-1 control-label"> Cost : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="number" placeholder="Insert cost for train course here."
+                                       id="BaseCost" formControlName="BaseCost"
+                                       min="0">
+                                <control-messages [control]="editValueForm.controls.BaseCost"></control-messages>
+                            </div>
+                        </div>
+
+                        <!-- Row6 -->
+                        <div class="form-group form-group-sm">
+                            <label for="Remark" class="col-sm-1 control-label"> Remark : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" placeholder="Insert remark here."
+                                       id="Remark" formControlName="Remark">
+                                <control-messages [control]="editValueForm.controls.Remark"></control-messages>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab label="Certificate">
+            <div class="panel panel-info small">
+                <div class="panel-body body-height">
+                    <attact-file (results)="updateResults($event)">
+                    </attact-file>
+                    <hr />
+                    <h4>List of File {{editValue.AttachFile?.length || 0}}</h4>
+                    <p style="color:red;">** 5MB Maximum for Attachment File Size **</p>
+                    <div *ngFor="let file of editValue.AttachFile;let num = index">
+                        <a class="item" style="padding:0;margin:1px;">
+                            {{num + 1}}. {{file.name}}
+                        </a>
+                    </div>
+                    <hr />
+                    <div *ngIf="attachFiles.length > 0">
+                        <table class="table table-hover table-sm small">
+                            <colgroup>
+                                <col span="1" style="width: 80%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Command</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let file of attachFiles; let num2 = index">
+                                    <td (click)="onOpenNewLink(file.AttachAddress)" style="cursor:pointer;">
+                                        {{num2 + 1}}. {{file.AttachFileName}}
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <a class="btn btn-sm btn-default" mdTooltip="Open Attach File" (click)="onOpenNewLink(file.AttachAddress)">
+                                                <em class="fa fa-file"></em>
+                                            </a>
+                                            <a class="btn btn-sm btn-danger" mdTooltip="Remove Attach File" (click)="onDeleteAttachFile(file)">
+                                                <em class="fa fa-remove"></em>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </md-tab>
+    </md-tab-group>
+
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of training-course.
+</ng-template>

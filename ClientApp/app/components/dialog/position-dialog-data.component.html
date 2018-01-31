@@ -1,0 +1,24 @@
+﻿<div class="panel panel-info">
+    <div class="panel-body">
+        <div class="example-header">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <md-input-container floatPlaceholder="never">
+                <input type="text" mdInput placeholder="Filter position..." #filter>
+            </md-input-container>
+        </div>
+        <div class="shadowbox">
+            <!--<p-dataTable [value]="positions" selectionMode="single" resizableColumns="true"
+                         [(selection)]="position" (onRowSelect)="onSendDataToPartne()"
+                         scrollable="true" [scrollHeight]="'300px'" [rowTrackBy]="rowTrackBy">-->
+            <p-dataTable [value]="positions" selectionMode="single" resizableColumns="true"
+                         [(selection)]="position" (onRowSelect)="onSendDataToPartne()"
+                         scrollable="true" [scrollHeight]="'300px'"
+                         [rows]="25" virtualScroll="virtualScroll"
+                         [lazy]="true" (onLazyLoad)="onLoadData($event)" [totalRecords]="totalRow"
+                         [rowTrackBy]="rowTrackBy">
+                <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                          [style]="column.style" [sortable]="true"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>

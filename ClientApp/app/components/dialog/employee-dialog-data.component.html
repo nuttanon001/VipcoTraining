@@ -1,0 +1,50 @@
+﻿<div class="panel panel-info small">
+    <div class="panel-body">
+        <div class="form-group form-group-sm">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <md-input-container floatPlaceholder="never">
+                <input type="text" mdInput placeholder="Filter training course..." #filter>
+            </md-input-container>
+            <i class="fa fa-map-marker" aria-hidden="true" style="margin-left:15px;margin-right:15px;"></i>
+            <p-dropdown [options]="locations" [(ngModel)]="location" [filter]="true" [style]="{'width':'200px'}"
+                        (onChange)="onChange()" scrollHeight="150px" styleClass="">
+            </p-dropdown>
+        </div>
+        <div class="shadowbox">
+            <div *ngIf="isSingle;else elseBlock">
+                <p-dataTable [value]="employees" selectionMode="single" resizableColumns="true" dataKey="EmpCode"
+                             [(selection)]="employee" (onRowSelect)="onSendDataSingeToParent(employee)"
+                             scrollable="true" [scrollHeight]="'300px'"
+                             [rows]="25" virtualScroll="virtualScroll"
+                             [lazy]="true" (onLazyLoad)="onLoadData($event)"
+                             [totalRecords]="totalRow" [rowTrackBy]="rowTrackBy">
+                    <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                              [style]="column.style" [sortable]="true">
+
+                    </p-column>
+                </p-dataTable>
+            </div>
+            <ng-template #elseBlock>
+                <p-dataTable [value]="employees" resizableColumns="true" dataKey="EmpCode"
+                             [(selection)]="selectionEmployees"
+                             scrollable="true" [scrollHeight]="'300px'"
+                             [rows]="25" virtualScroll="virtualScroll"
+                             [lazy]="true" (onLazyLoad)="onLoadData($event)"
+                             [headerCheckboxToggleAllPages]="true" [totalRecords]="totalRow"
+                             [rowTrackBy]="rowTrackBy">
+                    <p-header>
+                        <div class="ui-helper-clearfix" style="width:100%">
+                            <button (click)="onSendDataToParent()" md-raised-button style="float:left">
+                                <i class="fa fa-send" aria-hidden="true"></i>
+                                <span>Select</span>
+                            </button>
+                        </div>
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                              [style]="column.style" [sortable]="true"></p-column>
+                </p-dataTable>
+            </ng-template>
+        </div>
+    </div>
+</div>

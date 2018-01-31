@@ -1,0 +1,140 @@
+﻿<div *ngIf="displayValue,else elseBlock" >
+    <md-tab-group>
+        <md-tab label="Information of Course">
+            <div class="panel panel-info small">
+                <div class="panel-body">
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row1-->
+                        <div class="col-sm-2 display-label">
+                            Cousre Code :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingCousreCode || "-"}}
+                        </div>
+                        <div class="col-sm-2 display-label">
+                            Name :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingCousreName || "-"}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row2-->
+                        <div class="col-sm-2 display-label">
+                            Detail :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.Detail || "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Education :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.EducationRequirementString || "-"}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row3-->
+                        <div class="col-sm-2 display-label">
+                            Training Level :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingLevelString || "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Training Type :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingTypeString || "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row4-->
+                        <div class="col-sm-2 display-label">
+                            Experience :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.WorkExperienceRequirement !== null ? displayValue.WorkExperienceRequirement + ' Yr.' : "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Minimun Score :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.MinimunScore || "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row5-->
+                        <div class="col-sm-2 display-label">
+                            Time :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingDurationHour !== null ? displayValue.TrainingDurationHour + ' Hr.' : "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Cost :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{(displayValue.BaseCost | currency:'THB':true:'1.0-2') || "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row6-->
+                        <div class="col-sm-2 display-label">
+                            Remark :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.Remark || "-"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab label="Certificate">
+            <div class="panel panel-info small">
+                <div class="panel-body" >
+                    <div *ngIf="attachFiles.length > 0,else elseAttact">
+                        <table class="table table-hover table-sm small">
+                            <colgroup>
+                                <col span="1" style="width: 80%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Open</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let file of attachFiles;let num = index">
+                                    <td (click)="onOpenNewLink(file.AttachAddress)" style="cursor:pointer;">
+                                        {{num + 1}}. {{file.AttachFileName}}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-default" (click)="onOpenNewLink(file.AttachAddress)">
+                                            <em class="fa fa-file"></em>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ng-template #elseAttact>
+                        <p>Cretificates not found !</p>
+                    </ng-template>
+                </div>
+            </div>
+        </md-tab>
+    </md-tab-group>
+
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    View information of training-course.
+</ng-template>

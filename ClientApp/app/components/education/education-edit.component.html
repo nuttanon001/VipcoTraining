@@ -1,0 +1,38 @@
+﻿<div *ngIf="editValue; else elseBlock" class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Edit information of education</h4>
+    </div>
+    <div class="panel-body">
+        <form [formGroup]="editValueForm" class="form-horizontal">
+            <!--Row1-->
+            <div class="form-group form-group-sm">
+                <label for="EducationId" class="col-sm-1 control-label"> EducationID : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="auto generated code no"
+                           id="EducationId" formControlName="EducationId" readonly>
+                </div>
+
+                <label for="EducationName" class="col-sm-1 control-label"> Name : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="EducationName"
+                           id="EducationName" formControlName="EducationName" required>
+                    <control-messages [control]="editValueForm.controls.EducationName"></control-messages>
+                </div>
+            </div>
+
+            <!--Row2-->
+            <div class="form-group form-group-sm">
+                <label for="Detail" class="col-sm-1 control-label"> Detail : </label>
+                <div class="col-sm-11">
+                    <input class="form-control" type="text" placeholder="Insert detail of education here."
+                           id="Detail" formControlName="Detail">
+                    <control-messages [control]="editValueForm.controls.Detail"></control-messages>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of education.
+</ng-template>

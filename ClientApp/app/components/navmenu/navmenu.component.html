@@ -1,0 +1,125 @@
+<nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="fa fa-2x fa-navicon"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="active">
+                <img src="/images/logoVIPCO.png" alt="Vipco" width="36" height="36">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a class="header-title" [routerLink]="['/home']" routerLinkActive="active">
+                        Vipco Training System
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-left" style="padding-left:50px;">
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/home']">
+                        <i class="fa fa-home" aria-hidden="true"></i> Home
+                    </a>
+                </li>
+                <!-- MainMenu -->
+                <li *ngIf="!showLogin" [routerLinkActive]="['link-active']">
+                    <a #mainMenu="mdMenuTrigger" [mdMenuTriggerFor]="menu1" (onMenuOpen)="menuOnCloseMenu1()" (mouseover)="menuOnOpenMenu1()">
+                        <i class="fa fa-map-signs" aria-hidden="true"></i>
+                        Training
+                    </a>
+                    <md-menu #menu1="mdMenu">
+                        <div style="padding-top: 51px;">
+                            <button md-menu-item [routerLink]="['/training-master']">
+                                <i class="fa fa-university" aria-hidden="true"></i>
+                                <span>Training Master</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/training-program']">
+                                <i class="fa fa-object-group" aria-hidden="true"></i>
+                                <span>Training Road Map</span>
+                            </button>
+                            <hr />
+                            <button md-menu-item [routerLink]="['/training-master/template', 'Course']">
+                                <i class="fa fa-share-square" aria-hidden="true"></i>
+                                <span>Report Training By Course</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/training-master/template', 'Program']">
+                                <i class="fa fa-share-square" aria-hidden="true"></i>
+                                <span>Report Training By Road Map</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/training-master/template', 'EmployeeReport']">
+                                <i class="fa fa-share-square" aria-hidden="true"></i>
+                                <span>Report Training By Employee</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/training-master/template', 'CostReport']">
+                                <i class="fa fa-share-square" aria-hidden="true"></i>
+                                <span>Report Training Cost</span>
+                            </button>
+                            <!--<button md-menu-item [routerLink]="['/schedule']">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <span>Transport Schedule</span>
+                            </button>-->
+                        </div>
+                    </md-menu>
+                </li>
+                <li *ngIf="!showLogin" [routerLinkActive]="['link-active']">
+                    <a #subMenu="mdMenuTrigger" [mdMenuTriggerFor]="menu2" (onMenuOpen)="menuOnCloseMenu2()" (mouseover)="menuOnOpenMenu2()">
+                        <i class="fa fa-comments-o" aria-hidden="true"></i>
+                        Config
+                    </a>
+                    <md-menu #menu2="mdMenu">
+                        <div style="padding-top: 51px;">
+                            <button md-menu-item [routerLink]="['/training-course']">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <span>Course</span>
+                            </button>
+                            <button md-menu-item routerLink="/education" routerLinkActive="active">
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                <span>Education</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/training-level']" [routerLinkActive]="['link-active']">
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                <span>Level of Training</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/training-type']" [routerLinkActive]="['link-active']">
+                                <i class="fa fa-text-height" aria-hidden="true"></i>
+                                <span>Type of Training</span>
+                            </button>
+                            <button md-menu-item [routerLink]="['/place']" [routerLinkActive]="['link-active']">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <span>Place</span>
+                            </button>
+                            <!--<button md-menu-item [routerLink]="['/employee']" [routerLinkActive]="['link-active']">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <span>Employee</span>
+                            </button>-->
+                        </div>
+                    </md-menu>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li *ngIf="showLogin; else elseBlock" [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/login']">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        Login
+                    </a>
+                </li>
+                <ng-template #elseBlock>
+                    <li>
+                        <!--<a>Welcome <span class="badge">{{ authService.userName }}</span></a>-->
+                        <a class="username">Welcome <i>{{authService.userName}}</i></a>
+                    </li>
+                    <li>
+                        <a (click)="onLogOut()">
+                            <em class="fa fa-sign-out" aria-hidden="true"></em>
+                            Logout
+                        </a>
+                    </li>
+                </ng-template>
+            </ul>
+        </div>
+    </div>
+</nav>

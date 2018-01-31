@@ -1,0 +1,123 @@
+﻿<div *ngIf="displayValue,else elseBlock">
+    <md-tab-group>
+        <md-tab >
+            <ng-template md-tab-label>
+                <b>Training Road Map</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-body">
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row1-->
+                        <div class="col-sm-2 display-label">
+                            Code :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingProgramCode || "-"}}
+                        </div>
+                        <div class="col-sm-2 display-label">
+                            Name :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingProgramName || "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row2-->
+                        <div class="col-sm-2 display-label">
+                            Level :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingProgramLevelString || "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Detail :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.Detail || "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row3-->
+                        <div class="col-sm-2 display-label">
+                            Remark :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.Remark || "-"}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </md-tab>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Courses</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-body body-height">
+                    <p-accordion>
+                        <p-accordionTab [header]="HeaderStandard">
+                            <p-dataTable [value]="displayValue.TblStandardCourse" scrollable="true"
+                                            [scrollHeight]="scrollHeight" [rowTrackBy]="rowTrackBy">
+                                <p-column *ngFor="let column of standardColumns" [field]="column.field" [header]="column.header"
+                                            [style]="column.style" [sortable]="true">
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                        <p-accordionTab [header]="HeaderBasic">
+                            <p-dataTable [value]="displayValue.TblBasicCourse" scrollable="true"
+                                            [scrollHeight]="scrollHeight" [rowTrackBy]="rowTrackBy">
+                                <p-column *ngFor="let column of basicColumns" [field]="column.field" [header]="column.header"
+                                            [style]="column.style" [sortable]="true">
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                        <p-accordionTab [header]="HeaderSupplement">
+                            <p-dataTable [value]="displayValue.TblSupplementCourse" scrollable="true"
+                                            [scrollHeight]="scrollHeight" [rowTrackBy]="rowTrackBy">
+                                <p-column *ngFor="let column of supplementColumns" [field]="column.field" [header]="column.header"
+                                            [style]="column.style" [sortable]="true">
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Groups & Positions</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-body body-height">
+                    <p-accordion>
+                        <p-accordionTab [header]="HeaderPosition" [selected]="true">
+                            <p-dataTable [value]="displayValue.TblTrainingProgramHasPosition" scrollable="true"
+                                         [scrollHeight]="scrollHeight" [rowTrackBy]="rowTrackBy">
+                                <p-column *ngFor="let column of hasPositionColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                        <p-accordionTab [header]="HeaderGroup">
+                            <p-dataTable [value]="displayValue.TblTrainingProgramHasGroup" scrollable="true"
+                                         [scrollHeight]="scrollHeight" [rowTrackBy]="rowTrackBy">
+                                <p-column *ngFor="let column of hasGroupColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+        </md-tab>
+    </md-tab-group>
+
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    View information of training program.
+</ng-template>

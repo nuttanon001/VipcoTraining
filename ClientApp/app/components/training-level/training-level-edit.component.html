@@ -1,0 +1,38 @@
+﻿<div *ngIf="editValue; else elseBlock" class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Edit information of training-level</h4>
+    </div>
+    <div class="panel-body">
+        <form [formGroup]="editValueForm" class="form-horizontal">
+            <!--Row1-->
+            <div class="form-group form-group-sm">
+                <label for="TrainingLevelId" class="col-sm-1 control-label"> Level ID : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="auto generated code no"
+                           id="TrainingLevelId" formControlName="TrainingLevelId" readonly>
+                </div>
+
+                <label for="TrainingLevel" class="col-sm-1 control-label"> Level : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="Insert level here."
+                           id="TrainingLevel" formControlName="TrainingLevel" required>
+                    <control-messages [control]="editValueForm.controls.TrainingLevel"></control-messages>
+                </div>
+            </div>
+
+            <!--Row2-->
+            <div class="form-group form-group-sm">
+                <label for="Detail" class="col-sm-1 control-label"> Detail : </label>
+                <div class="col-sm-11">
+                    <input class="form-control" type="text" placeholder="Insert detail of level here."
+                           id="Detail" formControlName="Detail">
+                    <control-messages [control]="editValueForm.controls.Detail"></control-messages>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of training-level.
+</ng-template>

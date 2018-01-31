@@ -1,0 +1,210 @@
+﻿<div *ngIf="editValue; else elseBlock">
+    <md-tab-group>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Training Road Map</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-heading">
+                    <h4>Edit information of training-program</h4>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="editValueForm" class="form-horizontal">
+                        <!--Row1-->
+                        <div class="form-group form-group-sm">
+                            <label for="TrainingProgramCode" class="col-sm-2 control-label"> Training Program Code : </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Insert code of training program here."
+                                       id="TrainingProgramCode" formControlName="TrainingProgramCode" required>
+                                <control-messages [control]="editValueForm.controls.TrainingProgramCode"></control-messages>
+                            </div>
+
+                            <label for="TrainingProgramName" class="col-sm-2 control-label"> Training Program Name : </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Insert name of training program here."
+                                       id="TrainingProgramName" formControlName="TrainingProgramName" required>
+                                <control-messages [control]="editValueForm.controls.TrainingProgramName"></control-messages>
+                            </div>
+                        </div>
+
+                        <!--Row2-->
+                        <div class="form-group form-group-sm">
+                            <label for="TrainingProgramLevelString" class="col-sm-2 control-label"> Level : </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Insert level of training program here."
+                                       id="TrainingProgramLevelString" formControlName="TrainingProgramLevelString">
+                            </div>
+
+                            <label for="Detail" class="col-sm-2 control-label"> Detail : </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Insert detail here."
+                                       id="Detail" formControlName="Detail">
+                                <control-messages [control]="editValueForm.controls.Detail"></control-messages>
+                            </div>
+                        </div>
+
+                        <!--Row3-->
+                        <div class="form-group form-group-sm">
+                            <label for="Remark" class="col-sm-2 control-label"> Remark : </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Insert remark here."
+                                       id="Remark" formControlName="Remark">
+                                <control-messages [control]="editValueForm.controls.Remark"></control-messages>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </md-tab>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Courses</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-body body-height">
+                    <p-accordion>
+                        <p-accordionTab [header]="HeaderStandard" [selected]="true">
+                            <p-dataTable [value]="editValue.TblStandardCourse" resizableColumns="true"
+                                         scrollable="true" [scrollHeight]="'55vh'"
+                                         [rowTrackBy]="rowTrackBy">
+                                <p-header>
+                                    <div class="ui-helper-clearfix" style="width:100%">
+                                        <button (click)="openCourseDialog('standard')" md-raised-button style="float:left">
+                                            <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                                            <span>Add Standard Course</span>
+                                        </button>
+                                    </div>
+                                </p-header>
+                                <p-column *ngFor="let column of standardColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                                <p-column [style]="{'width':'100px'}">
+                                    <ng-template let-detail="rowData" pTemplate="body">
+                                        <button type="button" md-button color="warn" (click)="removerItem(detail)"> delete </button>
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                        <p-accordionTab [header]="HeaderBasic">
+                            <p-dataTable [value]="editValue.TblBasicCourse" resizableColumns="true"
+                                         scrollable="true" [scrollHeight]="'55vh'"
+                                         [rowTrackBy]="rowTrackBy">
+                                <p-header>
+                                    <div class="ui-helper-clearfix" style="width:100%">
+                                        <button (click)="openCourseDialog('basic')" md-raised-button style="float:left">
+                                            <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                                            <span>Add Basic Course</span>
+                                        </button>
+                                    </div>
+                                </p-header>
+                                <p-column *ngFor="let column of standardColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                                <p-column [style]="{'width':'100px'}">
+                                    <ng-template let-detail="rowData" pTemplate="body">
+                                        <button type="button" md-button color="warn" (click)="removerItem(detail)"> delete </button>
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                        <p-accordionTab [header]="HeaderSupplement">
+                            <p-dataTable [value]="editValue.TblSupplementCourse" resizableColumns="true"
+                                         scrollable="true" [scrollHeight]="'55vh'"
+                                         [rowTrackBy]="rowTrackBy">
+                                <p-header>
+                                    <div class="ui-helper-clearfix" style="width:100%">
+                                        <button (click)="openCourseDialog('supplement')" md-raised-button style="float:left">
+                                            <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                                            <span>Add Supplement Course</span>
+                                        </button>
+                                    </div>
+                                </p-header>
+                                <p-column *ngFor="let column of supplementColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                                <p-column [style]="{'width':'100px'}">
+                                    <ng-template let-detail="rowData" pTemplate="body">
+                                        <button type="button" md-button color="warn" (click)="removerItem(detail)"> delete </button>
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Groups & Positions</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-body body-height">
+                    <p-accordion>
+                        <p-accordionTab [header]="HeaderPosition" [selected]="true">
+                            <p-dataTable [value]="editValue.TblTrainingProgramHasPosition" resizableColumns="true"
+                                         scrollable="true" [scrollHeight]="'55vh'"
+                                         [rowTrackBy]="rowTrackBy" [immutable]=false>
+                                <p-header>
+                                    <div class="ui-helper-clearfix" style="width:100%;">
+                                        <button (click)="openPositionDialog()" md-raised-button style="float:left">
+                                            <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                                            <span>Add Position</span>
+                                        </button>
+                                    </div>
+                                </p-header>
+                                <p-column *ngFor="let column of hasPositionColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                                <p-column [style]="{'width':'100px'}">
+                                    <ng-template let-detail="rowData" pTemplate="body">
+                                        <button type="button" md-button color="warn" (click)="removerItem(detail)"> delete </button>
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                        <p-accordionTab [header]="HeaderGroup">
+                            <p-dataTable [value]="editValue.TblTrainingProgramHasGroup" resizableColumns="true"
+                                         scrollable="true" [scrollHeight]="'55vh'"
+                                         [rowTrackBy]="rowTrackBy" [immutable]=false>
+                                <p-header>
+                                    <div class="ui-helper-clearfix" style="width:100%;">
+                                        <button (click)="openGroupDialog()" md-raised-button style="float:left">
+                                            <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                                            <span>Add Group</span>
+                                        </button>
+                                    </div>
+                                </p-header>
+                                <p-column *ngFor="let column of hasGroupColumns" [field]="column.field" [header]="column.header"
+                                          [style]="column.style" [sortable]="true">
+                                </p-column>
+                                <p-column [style]="{'width':'100px'}">
+                                    <ng-template let-detail="rowData" pTemplate="body">
+                                        <button type="button" md-button color="warn" (click)="removerItem(detail)"> delete </button>
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+        </md-tab>
+    </md-tab-group>
+
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of training-program.
+</ng-template>
+<p-dialog [(visible)]="showCourse" [modal]="true" [responsive]="true" [positionTop]="70"
+          header="Select course for training-program" [width]="650" dismissableMask="true">
+    <corse-dialog></corse-dialog>
+</p-dialog>
+<p-dialog [(visible)]="showPosition" [modal]="true" [responsive]="true" [positionTop]="70"
+          header="Select postion of employee" [width]="650" dismissableMask="true">
+    <position-dialog></position-dialog>
+</p-dialog>
+<p-dialog [(visible)]="showGroup" [modal]="true" [responsive]="true" [positionTop]="70"
+          header="Select group of employee" [width]="650" dismissableMask="true">
+    <group-dialog></group-dialog>
+</p-dialog>

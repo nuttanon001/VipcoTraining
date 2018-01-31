@@ -1,0 +1,46 @@
+﻿<div *ngIf="editValue; else elseBlock" class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Edit information of training-type</h4>
+    </div>
+    <div class="panel-body">
+        <form [formGroup]="editValueForm" class="form-horizontal">
+            <!--Row1-->
+            <div class="form-group form-group-sm">
+                <label for="TrainingTypeId" class="col-sm-1 control-label"> Type ID : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="auto generated code no"
+                           id="TrainingTypeId" formControlName="TrainingTypeId" readonly>
+                </div>
+
+                <label for="TrainingTypeName" class="col-sm-1 control-label"> Type Name : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="Insert type here."
+                           id="TrainingTypeName" formControlName="TrainingTypeName" required>
+                    <control-messages [control]="editValueForm.controls.TrainingTypeName"></control-messages>
+                </div>
+            </div>
+
+            <!--Row2-->
+            <div class="form-group form-group-sm">
+                <label for="Detail" class="col-sm-1 control-label"> Detail : </label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" placeholder="Insert detail of type here."
+                           id="Detail" formControlName="Detail">
+                    <control-messages [control]="editValueForm.controls.Detail"></control-messages>
+                </div>
+
+                <label for="TrainingTypeParentId" class="col-sm-1 control-label"> Type Parent : </label>
+                <div class="col-sm-5">
+                    <p-dropdown [options]="typeParents" filter="filter" [style]="{'width':'100%'}"
+                                id="TrainingTypeParentId" formControlName="TrainingTypeParentId"
+                                class="form-control no-border">
+                    </p-dropdown>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of training-type.
+</ng-template>

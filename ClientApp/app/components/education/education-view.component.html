@@ -1,0 +1,42 @@
+﻿<div *ngIf="displayValue,else elseBlock" class="panel panel-info small">
+    <div class="panel-heading">
+        <h4>Information of education</h4>
+    </div>
+    <div class="panel-body">
+        <div class="col-sm-12 top-buffer">
+            <!--Row1-->
+            <div class="col-sm-2 display-label">
+                EducationID :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.EducationId || "-"}}
+            </div>
+            <div class="col-sm-2 display-label">
+                Education Name :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.EducationName || "-"}}
+            </div>
+        </div>
+        <div class="col-sm-12 top-buffer">
+            <!--Row2-->
+            <div class="col-sm-2 display-label">
+                Detail :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.Detail || "-"}}
+            </div>
+
+            <div class="col-sm-2 display-label">
+                Create Date :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{(displayValue.CreateDate | date:'dd/MM/yyyy') || "-"}}
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    View information of education.
+</ng-template>

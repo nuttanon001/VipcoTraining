@@ -1,0 +1,87 @@
+﻿.navbar {
+    background-color: #0a7ab2;
+}
+
+.navbar-brand {
+    padding: 5px 0px 0px 5px;
+}
+
+.navbar-nav {
+    .header-title {
+        font-size: larger;
+        font-weight: 600;
+    }
+
+    .active {
+        bottom: -.1em;
+        background-color: transparent;
+    }
+
+    li {
+        background-color: #0a7ab2;
+
+        &:hover {
+            bottom: -.1em;
+            background-color: transparent;
+        }
+    }
+
+    button {
+        padding: 8px;
+        color: lightcyan;
+
+        &:hover {
+            color: black;
+            background-color: transparent;
+        }
+
+        &:focus {
+            color: black;
+            background-color: transparent;
+        }
+    }
+
+    a {
+        color: lightcyan;
+        cursor: pointer;
+
+        &:hover {
+            color: black;
+            background-color: transparent;
+        }
+
+        .active {
+            bottom: -.1em;
+            background-color: transparent;
+        }
+
+        &:focus {
+            color: black;
+            background-color: transparent;
+        }
+    }
+
+    .username {
+        color: whitesmoke;
+        cursor: none;
+
+        &:hover {
+            color: whitesmoke;
+            background-color: transparent;
+        }
+
+        .active {
+            bottom: 1em;
+            background-color: transparent;
+        }
+
+        &:focus {
+            color: black;
+            background-color: transparent;
+        }
+    }
+}
+
+.test {
+    background-color: #0a7ab2;
+}

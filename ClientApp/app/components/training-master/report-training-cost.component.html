@@ -1,0 +1,55 @@
+﻿<div class="panel panel-info ">
+    <div class="panel-heading ">
+        <form [formGroup]="reportForm" class="form-content">
+            <div>
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" formControlName="courseName" placeholder="Selected training course " mdTooltip="Selected training course"
+                       (click)="openDialog('Course')" style="cursor:pointer;" readonly>
+            </div>
+            <div>
+                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                <p-calendar formControlName="AfterDate" [showIcon]="true"
+                            dateFormat="dd/mm/yy" placeholder="Selected date of training"
+                            [style]="{'width':'200px'}" [maxDate]="reportForm.controls.EndDate.value">
+                </p-calendar>
+            </div>
+
+            <div>
+                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                <p-calendar formControlName="EndDate" [showIcon]="true"
+                            dateFormat="dd/mm/yy" placeholder="Selected date of training"
+                            [style]="{'width':'200px'}" [minDate]="reportForm.controls.AfterDate.value">
+                </p-calendar>
+            </div>
+
+            <div>
+                <button type="button" md-mini-fab color="warn" (click)="resetFilter()" mdTooltip="Reset all filter">
+                    <i class="fa fa-2x fa-minus" aria-hidden="true" style="margin:0px;"></i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+    <div class="panel-body ">
+        <div style="width:100%">
+            <p-dataTable [value]="trainingCosts" resizableColumns="true"
+                         [(selection)]="trainingCost"
+                         scrollable="true" [scrollHeight]="scrollHeight"
+                         [rowTrackBy]="rowTrackBy" dt>
+                <p-header>
+                    <div class="ui-helper-clearfix">
+                        <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export" (click)="reportExcel()" style="float:left"></button>
+                    </div>
+                </p-header>
+                <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                          [style]="column.style" [sortable]="true">
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="showCourse" [modal]="true" [responsive]="true"
+          header="Select course for training" [width]="650" dismissableMask="true">
+    <corse-dialog></corse-dialog>
+</p-dialog>

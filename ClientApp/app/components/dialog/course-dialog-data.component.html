@@ -1,0 +1,22 @@
+﻿<div class="panel panel-info">
+    <div class="panel-body">
+        <div class="example-header">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <md-input-container floatPlaceholder="never">
+                <input type="text" mdInput placeholder="Filter training course..." #filter>
+            </md-input-container>
+        </div>
+        <div class="shadowbox">
+            <p-dataTable [value]="courses" selectionMode="single" resizableColumns="true"
+                         [(selection)]="course" (onRowSelect)="onSendDataToPartne(course)"
+                         scrollable="true" [scrollHeight]="'300px'"
+                         [rows]="25" virtualScroll="virtualScroll"
+                         [lazy]="true" (onLazyLoad)="onLoadData($event)" [totalRecords]="totalRow"
+                         [rowTrackBy]="rowTrackBy">
+                <p-header>There are {{totalRow}} training-course(s)</p-header>
+                <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                          [style]="column.style" [sortable]="true"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>

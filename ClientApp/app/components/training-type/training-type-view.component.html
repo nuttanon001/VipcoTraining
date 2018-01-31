@@ -1,0 +1,51 @@
+﻿<div *ngIf="displayValue,else elseBlock" class="panel panel-info small">
+    <div class="panel-heading">
+        <h4>Information of training-type</h4>
+    </div>
+    <div class="panel-body">
+        <div class="col-sm-12 top-buffer">
+            <!--Row1-->
+            <div class="col-sm-2 display-label">
+                Training Type ID :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.TrainingTypeId || "-"}}
+            </div>
+            <div class="col-sm-2 display-label">
+                Type Name :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.TrainingTypeName || "-"}}
+            </div>
+        </div>
+        <div class="col-sm-12 top-buffer">
+            <!--Row2-->
+            <div class="col-sm-2 display-label">
+                Detail :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.Detail || "-"}}
+            </div>
+
+            <div class="col-sm-2 display-label">
+                Type Parent :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{displayValue.TrainingTypeParentString || "-"}}
+            </div>
+        </div>
+        <div class="col-sm-12 top-buffer">
+            <!--Row3-->
+            <div class="col-sm-2 display-label">
+                Create Date :
+            </div>
+            <div class="col-sm-4 value-box">
+                {{(displayValue.CreateDate | date:'dd/MM/yyyy') || "-"}}
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    View information of training-type.
+</ng-template>

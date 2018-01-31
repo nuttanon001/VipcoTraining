@@ -1,0 +1,80 @@
+﻿<div class="panel panel-info ">
+    <div class="panel-heading ">
+        <form [formGroup]="reportForm" class="form-horizontal">
+
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <input type="text" formControlName="employeeName" placeholder="Click to selected employee..." mdTooltip="Selected employee"
+                   (click)="openDialog('Employee')" style="cursor:pointer;" readonly>
+
+            <i class="fa fa-search" aria-hidden="true" style="margin-left:10px;"></i>
+            <input type="text" formControlName="courseName" placeholder="Click to selected course..." mdTooltip="Selected training"
+                   (click)="openDialog('Course')" style="cursor:pointer;" readonly>
+
+            <i class="fa fa-calendar-o" aria-hidden="true" style="margin-left:15px;"></i>
+            <p-calendar formControlName="AfterDate" [showIcon]="true"
+                        dateFormat="dd/mm/yy" placeholder="Selected date of training..."
+                        [style]="{'width':'200px'}">
+            </p-calendar>
+
+            <button type="button" md-mini-fab color="warn" (click)="resetFilter()" mdTooltip="Reset all filter">
+                <i class="fa fa-2x fa-minus" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
+    <div class="panel-body ">
+        <p-dataTable [value]="trainingReports" resizableColumns="true" selectionMode="single"
+                     [(selection)]="trainingReport" (onRowSelect)="onGetAttachFile(trainingReport)"
+                     [rowTrackBy]="rowTrackBy" #dt>
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export"
+                            (click)="reportTrainingMasterExcel()" style="float:left">
+                    </button>
+                </div>
+            </p-header>
+            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                      [style]="column.style" [sortable]="true">
+            </p-column>
+        </p-dataTable>
+    </div>
+    <div class="panel-footer">
+        <div *ngIf="attachFiles.length > 0;else elseAttach">
+            <table class="table table-hover table-sm small">
+                <colgroup>
+                    <col span="1" style="width: 80%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Cretificates Name</th>
+                        <th>Open</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of attachFiles;let num = index">
+                        <td (click)="onOpenNewLink(file.AttachAddress)" style="cursor:pointer;">
+                            {{num + 1}}. {{file.AttachFileName}}
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-default" (click)="onOpenNewLink(file.AttachAddress)">
+                                <em class="fa fa-file"></em>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-template #elseAttach>
+            <p>Cretificates not found !</p>
+        </ng-template>
+    </div>
+</div>
+
+<p-dialog [(visible)]="showCourse" [modal]="true" [responsive]="true"
+          header="Select course for training" [width]="650" dismissableMask="true">
+    <corse-dialog></corse-dialog>
+</p-dialog>
+
+<p-dialog [(visible)]="showEmployee" [modal]="true" [responsive]="true"
+          header="Select program of employee" [width]="650" dismissableMask="true">
+    <employee-dialog></employee-dialog>
+</p-dialog>

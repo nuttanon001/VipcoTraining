@@ -1,0 +1,32 @@
+﻿<div *ngIf="editValue; else elseBlock">
+    <md-tab-group>
+        <md-tab label="Information of Place">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form [formGroup]="editValueForm" class="form-horizontal">
+                        <!--Row1-->
+                        <div class="form-group form-group-sm">
+                            <label for="PlaceId" class="col-sm-1 control-label"> Place No. : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" placeholder="auto generated code no"
+                                       id="PlaceId" formControlName="PlaceId" readonly>
+                            </div>
+
+                            <label for="PlaceName" class="col-sm-1 control-label"> Place Name : </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" placeholder="Insert name place here."
+                                       id="PlaceName" formControlName="PlaceName" required>
+                                <control-messages [control]="editValueForm.controls.PlaceName"></control-messages>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </md-tab>
+    </md-tab-group>
+
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of place.
+</ng-template>

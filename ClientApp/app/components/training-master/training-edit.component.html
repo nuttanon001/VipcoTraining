@@ -1,0 +1,195 @@
+﻿<md-tab-group *ngIf="editValue; else elseBlock">
+    <md-tab>
+        <ng-template md-tab-label>
+            <b>Information Training</b>
+        </ng-template>
+        <div class="panel panel-info">
+            <div class="panel-body need-hight">
+                <form [formGroup]="editValueForm" class="form-horizontal">
+                    <!--Row1-->
+                    <div class="form-group form-group-sm">
+                        <label for="TrainingCode" class="col-sm-1 control-label"> Course Name : </label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" placeholder="Insert course click here."
+                                    (click)="openCourseDialog()" style="cursor:pointer;"
+                                    id="TrainingCode" formControlName="TrainingCode" required readonly>
+                        </div>
+
+                        <label for="TrainingName" class="col-sm-1 control-label"> CourseName : </label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" placeholder="Insert course click here."
+                                    (click)="openCourseDialog()" style="cursor:pointer;"
+                                    id="TrainingName" formControlName="TrainingName" required readonly>
+                            <control-messages [control]="editValueForm.controls.TrainingName"></control-messages>
+                        </div>
+                    </div>
+
+                    <!--Row2-->
+                    <div class="form-group form-group-sm">
+                        <label for="Detail" class="col-sm-1 control-label"> Detail : </label>
+                        <div class="col-sm-11">
+                            <input class="form-control" type="text" placeholder="Insert detail of course here."
+                                    id="Detail" formControlName="Detail">
+                            <control-messages [control]="editValueForm.controls.Detail"></control-messages>
+                        </div>
+                    </div>
+
+                    <!--Row2.5-->
+                    <div class="form-group form-group-sm">
+                        <label for="TrainingDate" class="col-sm-1 control-label"> Date : </label>
+                        <div class="col-sm-2">
+                            <p-calendar formControlName="TrainingDate" [showIcon]="true" required
+                                        id="TrainingDate" dateFormat="dd/mm/yy" placeholder="  Select training date here"
+                                        [maxDate]="editValueForm.controls.TrainingDateEnd.value">
+                            </p-calendar>
+                            <span class="is-request-date">**</span>
+                        </div>
+                        <label for="TrainingDateTime" class="col-sm-1 control-label"> Time : </label>
+                        <div class="col-sm-2">
+                            <p-inputMask mask="99:99" placeholder="  HH:mm" [style]="{'width':'100%'}"
+                                            formControlName="TrainingDateTime" id="TrainingDateTime"
+                                            class="form-control no-border" required>
+                            </p-inputMask>
+                        </div>
+
+                        <label for="TrainingDateEnd" class="col-sm-1 control-label"> End Date : </label>
+                        <div class="col-sm-2">
+                            <p-calendar formControlName="TrainingDateEnd" [showIcon]="true" required
+                                        id="TrainingDateEnd" dateFormat="dd/mm/yy" placeholder="  Select training date here"
+                                        [minDate]="editValueForm.controls.TrainingDate.value">
+                            </p-calendar>
+                            <span class="is-request-date">**</span>
+                        </div>
+                        <label for="TrainingDateEndTime" class="col-sm-1 control-label"> Time : </label>
+                        <div class="col-sm-2">
+                            <p-inputMask mask="99:99" placeholder="  HH:mm" [style]="{'width':'100%'}"
+                                            formControlName="TrainingDateEndTime" id="TrainingDateEndTime"
+                                            class="form-control no-border" required>
+                            </p-inputMask>
+                        </div>
+                    </div>
+
+                    <!--Row3-->
+                    <div class="form-group form-group-sm">
+                        <label for="LecturerName" class="col-sm-1 control-label"> Lecturer : </label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" placeholder="Insert lecturer name here."
+                                    id="LecturerName" formControlName="LecturerName">
+                            <control-messages [control]="editValueForm.controls.LecturerName"></control-messages>
+                        </div>
+
+                        <label for="TrainingDurationHour" class="col-sm-1 control-label"> Duration(Hr.) : </label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="number" placeholder="Insert training duration here."
+                                    id="TrainingDurationHour" formControlName="TrainingDurationHour"
+                                    min="0">
+                            <control-messages [control]="editValueForm.controls.TrainingDurationHour"></control-messages>
+                        </div>
+                    </div>
+
+                    <!--Row4-->
+                    <div class="form-group form-group-sm">
+                        <label for="TrainingCost" class="col-sm-1 control-label"> Cost : </label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="number" placeholder="Insert training cost here."
+                                   id="TrainingCost" formControlName="TrainingCost"
+                                   min="0">
+                            <control-messages [control]="editValueForm.controls.TrainingCost"></control-messages>
+                        </div>
+
+                        <label for="PlaceId" class="col-sm-1 control-label"> Place : </label>
+                        <div class="col-sm-5">
+                            <p-dropdown [options]="places" filter="filter" [style]="{'width':'100%'}"
+                                        id="PlaceId" formControlName="PlaceId"
+                                        class="form-control no-border">
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <!--Row5-->
+                    <div class="form-group form-group-sm">
+                        <label for="Remark" class="col-sm-1 control-label"> Remark : </label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" placeholder="Insert remark here."
+                                   id="Remark" formControlName="Remark">
+                            <control-messages [control]="editValueForm.controls.Remark"></control-messages>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </md-tab>
+    <md-tab>
+        <ng-template md-tab-label>
+            <b>Employees of Training</b>
+        </ng-template>
+        <div class="panel panel-warning">
+            <div class="panel-body">
+                <p-dataTable [value]="editValue.TblTrainingDetail" resizableColumns="true"
+                                scrollable="true" [scrollHeight]="'55vh'"
+                                [rowTrackBy]="rowTrackBy" [editable]="true">
+                    <p-header>
+                        <div class="ui-helper-clearfix" style="width:100%">
+                            <button (click)="openEmployeeDialog()" md-raised-button style="float:left">
+                                <i class="fa fa-get-pocket" aria-hidden="true"></i>
+                                <span>Add employee</span>
+                            </button>
+                            <div style="float:right">
+                                <button type="button" class="btn btn-info" (click)="onAllPassOrNotTraining(true)">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <span>All Pass</span>
+                                </button>
+                                <button type="button" class="btn btn-warning" (click)="onAllPassOrNotTraining(false)">
+                                    <i class="fa fa-close" aria-hidden="true"></i>
+                                    <span>All Fail</span>
+                                </button>
+                            </div>
+                        </div>
+                    </p-header>
+                    <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                                [style]="column.style" [editable]="column.edit" [sortable]="true">
+                        <ng-template *ngIf="column.edit">
+                            <ng-template let-col let-detail="rowData" pTemplate="body">
+                                {{detail[col.field]}}
+                            </ng-template>
+                            <ng-template let-col let-detail="rowData" pTemplate="editor">
+                                <input type="number" required class="form-control" min="0"
+                                        [(ngModel)]="detail[col.field]" (blur)="onMasterEditDataTable(detail)" />
+                            </ng-template>
+                        </ng-template>
+                    </p-column>
+                    <p-column [style]="{'width':'145px'}">
+                        <ng-template let-detail="rowData" pTemplate="body">
+                            <button type="button" class="btn btn-info" (click)="onPassOrNotTraining(detail,true)">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <span>Pass</span>
+                            </button>
+                            <button type="button" class="btn btn-warning" (click)="onPassOrNotTraining(detail,false)">
+                                <i class="fa fa-close" aria-hidden="true"></i>
+                                <span>Fail</span>
+                            </button>
+                        </ng-template>
+                    </p-column>
+                    <p-column [style]="{'width':'70px'}">
+                        <ng-template let-detail="rowData" pTemplate="body">
+                            <button type="button"class="btn btn-danger" (click)="removerEmployee(detail)"> Delete </button>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+    </md-tab>
+</md-tab-group>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    Edit infomation of training.
+</ng-template>
+
+<p-dialog [(visible)]="showCourse" [modal]="true" [responsive]="true"
+          header="Select course for training" [width]="650" dismissableMask="true">
+    <corse-dialog></corse-dialog>
+</p-dialog>
+<p-dialog [(visible)]="showEmployee" [modal]="true" [responsive]="true" [positionTop]="70"
+          header="Select employee for training" [width]="650" [minHeight]="300" dismissableMask="true">
+    <employee-dialog></employee-dialog>
+</p-dialog>

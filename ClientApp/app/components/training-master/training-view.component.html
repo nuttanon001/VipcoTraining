@@ -1,0 +1,150 @@
+﻿<div *ngIf="displayValue,else elseBlock">
+    <md-tab-group>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Information Training</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div class="panel-body">
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row1-->
+                        <div class="col-sm-2 display-label">
+                            Cousre Code :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingCode || "-"}}
+                        </div>
+                        <div class="col-sm-2 display-label">
+                            Course Name :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingName || "-"}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row2-->
+                        <div class="col-sm-2 display-label">
+                            Detail :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.Detail || "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Training Date :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{(displayValue.TrainingDate | date:'dd/MM/yyyy : HH:mm') || "-"}}
+                            -
+                            {{(displayValue.TrainingDateEnd | date:'dd/MM/yyyy : HH:mm') || "-"}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row3-->
+                        <div class="col-sm-2 display-label">
+                            Lecturer :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.LecturerName || "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            Duration :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.TrainingDurationHour !== null ? displayValue.TrainingDurationHour + ' Hr.' : "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row4-->
+                        <div class="col-sm-2 display-label">
+                            Cost :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{(displayValue.TrainingCost | currency:'THB':true:'1.0-2') || "-"}}
+                        </div>
+
+                        <div class="col-sm-2 display-label">
+                            PlaceName :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.PlaceName || "-"}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 top-buffer">
+                        <!--Row5-->
+                        <div class="col-sm-2 display-label">
+                            Remark :
+                        </div>
+                        <div class="col-sm-4 value-box">
+                            {{displayValue.Remark || "-"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Employees of Training</b>
+            </ng-template>
+            <div *ngIf="displayValue.TblTrainingDetail,else elseEmployeeBlock">
+                <div class="panel panel-warning small">
+                    <div class="panel-body">
+                        <p-dataTable [value]="displayValue.TblTrainingDetail" scrollable="true"
+                                     [scrollHeight]="scrollHeight" [rowTrackBy]="rowTrackBy" [rowStyleClass]="customRowClass">
+                            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header"
+                                      [style]="column.style" [sortable]="true">
+                            </p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+            <ng-template #elseEmployeeBlock>
+                Data not found.
+            </ng-template>
+        </md-tab>
+        <md-tab>
+            <ng-template md-tab-label>
+                <b>Certificate of Training</b>
+            </ng-template>
+            <div class="panel panel-info small">
+                <div *ngIf="attachFiles.length > 0;else elseAttach">
+                    <div class="panel-body">
+                        <table class="table table-hover table-sm small">
+                            <colgroup>
+                                <col span="1" style="width: 80%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Open</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let file of attachFiles;let num = index">
+                                    <td (click)="onOpenNewLink(file.AttachAddress)" style="cursor:pointer;">
+                                        {{num + 1}}. {{file.AttachFileName}}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-default" (click)="onOpenNewLink(file.AttachAddress)">
+                                            <em class="fa fa-file"></em>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-template #elseAttach>
+                    <p>Cretificates not found !</p>
+                </ng-template>
+            </div>
+        </md-tab>
+    </md-tab-group>
+</div>
+<ng-template #elseBlock>
+    <md-progress-bar mode="indeterminate" style="margin-top:50px;"></md-progress-bar>
+    View information of training.
+</ng-template>
